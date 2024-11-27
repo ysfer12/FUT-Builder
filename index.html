@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./src/styles/styles.css">
 </head>
 <body>
+    
     <div class="container">
         <div class="header">
             <img src="./src/assets/img/football (4).png" alt="" style="height: 50px; width: 50px  ;">
@@ -21,77 +22,33 @@
 </div>
     <div class="container">
          <div style="background-image: url(./src/assets/img/STADIUMBG.png) ; background-repeat: no-repeat; height: 50%; width: 100%; ">
-             <div style="display: flex; justify-content: space-between; gap: 15px;" >
+            
+            <div style="display: flex; justify-content: space-between; gap: 15px;" >
               <div style="position: absolute; margin-top: 200px; background-image: url('/src/assets/img/stadvirt.svg'); height:100%; max-width: 1000px; width: 70%; background-size: contain; position: relative; z-index: 1; background-repeat: no-repeat; ">
                 <div class="field">
                     <div class="line forwards">
-                        <div class="default-card">
-                        <div class="player-card">
-                        <div style=" width: 100px;  margin-right: 6px;">
-                                <div style="display: flex; gap: 1px;">
-                            <div style="display: flex; flex-direction: column; margin-top: 25px;" >
-                                <span style="color:white; font-weight: bold; font-size: 25px;">99</span>
-                                <span style="color:white; font-weight: bold; font-size: 15px;">CM</span>            
-                            </div>
-
-                            <img src="https://cdn.sofifa.net/players/158/023/25_120.png" style="width: 80px; height: 80px; margin-top: 15px;" alt="">
+                        <div class="default-card" id="LW"> 
+                        
                         </div>
-                            <div>
-                                <div>
-                                    <span style="color:white;font-weight: bold; font-size: 19px" >LEO Messi</span>
-
-                                </div>
-                                <div style="display: flex; gap: 3px;">
-                                    <div style="display: flex; flex-direction: column;align-items: center">
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">DRI</span>
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">98</span>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column;align-items: center">
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">DEF</span>
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">98</span>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column;align-items: center" >
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">PHY</span>
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">98</span>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column;align-items: center" >
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">PAC</span>
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">98</span>
-                                    </div>
-                                    <div style="display: flex; flex-direction: column;align-items: center"> 
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">SHOT</span>
-                                        <span style="color:white; font-weight: bold; font-size: 9px;">98</span>
-                                    </div>
-                                </div>
-                                <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                                    <img src="https://cdn.sofifa.net/flags/ar.png" style="height: 20px; width: 20px;" alt="">
-                                    <img src="https://cdn.sofifa.net/meta/team/239235/120.png" style="height: 20px; width: 20px;" alt="">
-
-                                </div>
-
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                        <div class="default-card"></div>
-                        <div class="default-card"></div>
+                        <div class="default-card" id="ST"></div>
+                        <div class="default-card" id="RW"></div>
                 </div>
             
                 <div class="line midfielders">
-                        <div class="default-card">CM</div>
-                        <div class="default-card">CDM</div>
-                        <div class="default-card">CM</div>
+                        <div class="default-card" id="CM">CM</div>
+                        <div class="default-card" id="CDM">CDM</div>
+                        <div class="default-card" id="CAM">CAM</div>
                 </div>
             
                 <div class="line defenders">
-                        <div class="default-card">LB</div>
-                        <div class="default-card">CB</div>
-                        <div class="default-card">CB</div>
-                        <di class="default-card">RB</div>
+                        <div class="default-card" id="LB">LB</div>
+                        <div class="default-card" id="CBL">CB</div>
+                        <div class="default-card" id="CBR">CB</div>
+                        <di class="default-card" id="RB">RB</div>
                 </div>
 
                     <div class="line goalkeeper">
-                        <div class="default-card"></div>
+                        <div class="default-card" id="GK"></div>
                  </div>
             </div>
     
@@ -157,36 +114,36 @@
                     </div>
         
                     <div class="form-group">
-                        <label for="rating">Note Globale (1-99)</label>
+                        <label for="rating">Note Globale (10-99)</label>
                         <input type="number" id="rating" name="rating" 
-                               min="1" max="99" required>
+                               min="10" max="99" required>
                     </div>
         
                     <div id="outfieldStats" class="stats-grid">
                         <h3 class="stats-header">Statistiques - Joueur de Champ</h3>
                         <div class="form-group">
                             <label for="pace">Vitesse</label>
-                            <input type="number" id="pace" name="pace" min="1" max="99">
+                            <input type="number" id="pace" name="pace" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="shooting">Tir</label>
-                            <input type="number" id="shooting" name="shooting" min="1" max="99">
+                            <input type="number" id="shooting" name="shooting" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="passing">Passes</label>
-                            <input type="number" id="passing" name="passing" min="1" max="99">
+                            <input type="number" id="passing" name="passing" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="dribbling">Dribble</label>
-                            <input type="number" id="dribbling" name="dribbling" min="1" max="99">
+                            <input type="number" id="dribbling" name="dribbling" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="defending">Défense</label>
-                            <input type="number" id="defending" name="defending" min="1" max="99">
+                            <input type="number" id="defending" name="defending" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="physical">Physique</label>
-                            <input type="number" id="physical" name="physical" min="1" max="99">
+                            <input type="number" id="physical" name="physical" min="10" max="99">
                         </div>
                     </div>
         
@@ -194,27 +151,27 @@
                         <h3 class="stats-header">Statistiques - Gardien</h3>
                         <div class="form-group">
                             <label for="diving">Plongeon</label>
-                            <input type="number" id="diving" name="diving" min="1" max="99">
+                            <input type="number" id="diving" name="diving" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="handling">Maniement</label>
-                            <input type="number" id="handling" name="handling" min="1" max="99">
+                            <input type="number" id="handling" name="handling" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="kicking">Dégagement</label>
-                            <input type="number" id="kicking" name="kicking" min="1" max="99">
+                            <input type="number" id="kicking" name="kicking" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="reflexes">Réflexes</label>
-                            <input type="number" id="reflexes" name="reflexes" min="1" max="99">
+                            <input type="number" id="reflexes" name="reflexes" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="speed">Vitesse</label>
-                            <input type="number" id="speed" name="speed" min="1" max="99">
+                            <input type="number" id="speed" name="speed" min="10" max="99">
                         </div>
                         <div class="form-group">
                             <label for="positioning">Positionnement</label>
-                            <input type="number" id="positioning" name="positioning" min="1" max="99">
+                            <input type="number" id="positioning" name="positioning" min="10" max="99">
                         </div>
                     </div>
         
@@ -226,11 +183,17 @@
 </div>
 <div class="substitution-button" id="subtitution" style="display: flex ; flex-wrap: wrap; gap: 30px; justify-content: space-between;">
     <span>Substitutions</span>
-    <!-- Conteneur des joueurs en substitution -->
+
+
     <div class="substitution-container">
-       
     </div>
+    
 </div>
 <script src="/src/js/script.js"></script>
+
+<video autoplay muted loop id="myVideo" style="width: 100%;">
+    <source src="/src/assets/img/vecteezy_sport-stadium-video-background-flashing-lights-glowing_4216353.mp4"
+        type="video/mp4">
+</video>
 </body>
 </html>

@@ -10,6 +10,7 @@ body {
     background-color: #2a2929;
     padding: 10px;
     color: white;
+    background-clip:url(/src/assets/img/1108680235-preview.mp4);
 }
 
 .container {
@@ -79,7 +80,7 @@ body {
 .default-card{
     width: 140px;
     height: 250px;
-    background-image:url(/src/assets/img/pla) ;
+    background-image:url(/src/assets/img/placeholder-card-normal.webp) ;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,25 +109,27 @@ body {
     font-family: Arial, sans-serif;
     background-size: contain;
     background-repeat: no-repeat;
+    
 }
-.default-card{
-    width: 140px;
-    height: 250px;
-    background-image:url(/src/assets/img/placeholder-card-normal.webp) ;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    text-align: center;
-    position: relative;
+.player-card:hover .replace-btn{
+    display: block;
+    
+}
+.replace-btn{
+    display: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
     overflow: hidden;
-    font-family: Arial, sans-serif;
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-color: blue;
+    position: absolute;
+    right: 0px;
+margin-bottom: 150px;}
 
+
+.delete-btn{
+    display: none;
 }
-
 .formContainer {
     background-color: #1a1a1a;
     border-radius: 16px;
