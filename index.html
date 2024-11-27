@@ -22,10 +22,10 @@
     <div class="container">
          <div style="background-image: url(./src/assets/img/STADIUMBG.png) ; background-repeat: no-repeat; height: 50%; width: 100%; ">
              <div style="display: flex; justify-content: space-between; gap: 15px;" >
-              <div style="position: absolute; margin-top: 200px; background-image: url('/src/assets/img/stadvirt.svg'); height:100%; width: 70%; background-size: contain; position: relative; z-index: 1; background-repeat: no-repeat; ">
+              <div style="position: absolute; margin-top: 200px; background-image: url('/src/assets/img/stadvirt.svg'); height:100%; max-width: 1000px; width: 70%; background-size: contain; position: relative; z-index: 1; background-repeat: no-repeat; ">
                 <div class="field">
                     <div class="line forwards">
-
+                        <div class="default-card">
                         <div class="player-card">
                         <div style=" width: 100px;  margin-right: 6px;">
                                 <div style="display: flex; gap: 1px;">
@@ -72,200 +72,164 @@
                             </div>
                         </div>
                         </div>
-
-                        <div class="player-card"></div>
-                        <div class="player-card"></div>
+                    </div>
+                        <div class="default-card"></div>
+                        <div class="default-card"></div>
                 </div>
             
                 <div class="line midfielders">
-                        <div class="player-card">CM</div>
-                        <div class="player-card">CDM</div>
-                        <div class="player-card">CM</div>
+                        <div class="default-card">CM</div>
+                        <div class="default-card">CDM</div>
+                        <div class="default-card">CM</div>
                 </div>
             
                 <div class="line defenders">
-                        <div class="player-card">LB</div>
-                        <div class="player-card">CB</div>
-                        <div class="player-card">CB</div>
-                        <di class="player-card">RB</div>
+                        <div class="default-card">LB</div>
+                        <div class="default-card">CB</div>
+                        <div class="default-card">CB</div>
+                        <di class="default-card">RB</div>
                 </div>
 
                     <div class="line goalkeeper">
-                        <div class="player-card"></div>
+                        <div class="default-card"></div>
                  </div>
             </div>
     
-            <div class="form-container">
-                <div class="progress-bar">
-                    <div class="progress-step active"></div>
-                    <div class="progress-step"></div>
-                    <div class="progress-step"></div>
-                    <div class="progress-step"></div>
-                </div>
+            <div class="formContainer">
+                <h1 class="form-title">Inscription Joueur</h1>
         
                 <form id="playerRegistrationForm">
-                    <!-- Étape 1 : Type de Joueur -->
-                    <div class="step active" id="playerTypeStep">
-                        <h2>Type de Joueur</h2>
-                        <div class="form-group">
-                            <label for="playerType">Sélectionner le type de joueur</label>
-                            <select id="playerType" name="playerType" required>
-                                <option value="">Choisir un type</option>
-                                <option value="outfield">Joueur de champ</option>
-                                <option value="goalkeeper">Gardien</option>
-                            </select>
-                        </div>
-                        <div class="form-navigation">
-                            <button type="button" class="btn btn-next">Suivant</button>
-                        </div>
+                    <div class="player-type-select">
+                        <label>
+                            <input type="radio" name="playerType" value="outfield" required>
+                            Joueur de Champ
+                        </label>
+                        <label>
+                            <input type="radio" name="playerType" value="goalkeeper">
+                            Gardien
+                        </label>
                     </div>
         
-                    <!-- Étape 2 : Détails Personnels -->
-                    <div class="step" id="personalStep">
-                        <h2>Détails Personnels</h2>
-                        <div class="form-group">
-                            <label for="name">Nom Complet</label>
+                    <div class="form-group">
+                        <label for="name">Nom Complet</label>
+                        <div class="input-with-icon">
                             <input type="text" id="name" name="name" required 
                                    pattern="[A-Za-zÀ-ÿ\s]{2,50}" 
                                    title="Minimum 2 caractères, lettres uniquement">
-                            <div class="error-message" id="nameError">Nom invalide (2-50 lettres)</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="photo">URL de la Photo</label>
                             <input type="url" id="photo" name="photo" 
+                                   placeholder="URL de la Photo"
                                    pattern="https?://.*\.(jpg|jpeg|png|gif|webp)"
                                    title="Lien URL valide vers une image">
-                            <div class="error-message" id="photoError">URL d'image invalide</div>
                         </div>
-                        <div class="form-group">
-                            <label for="nationality">Nationalité</label>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="nationality">Nationalité</label>
+                        <div class="input-with-icon">
                             <input type="text" id="nationality" name="nationality" required 
                                    pattern="[A-Za-zÀ-ÿ\s]{2,50}" 
                                    title="Minimum 2 caractères, lettres uniquement">
-                            <div class="error-message" id="nationalityError">Nationalité invalide</div>
-                        </div>
-                        <div class="form-navigation">
-                            <button type="button" class="btn btn-prev">Précédent</button>
-                            <button type="button" class="btn btn-next">Suivant</button>
+                            <input type="url" id="nationalityFlag" name="nationalityFlag" 
+                                   placeholder="URL du Drapeau"
+                                   pattern="https?://.*\.(jpg|jpeg|png|gif|webp)"
+                                   title="Lien URL valide vers le drapeau">
                         </div>
                     </div>
         
-                    <!-- Étape 3 : Détails de l'Équipe -->
-                    <div class="step" id="teamStep">
-                        <h2>Détails de l'Équipe</h2>
-                        <div class="form-group">
-                            <label for="position">Position</label>
-                            <select id="position" name="position" required>
-                                <option value="">Sélectionner une position</option>
-                                <!-- Les options seront dynamiquement ajustées -->
-                            </select>
-                            <div class="error-message" id="positionError">Position requise</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="club">Club</label>
+                    <div class="form-group">
+                        <label for="club">Club</label>
+                        <div class="input-with-icon">
                             <input type="text" id="club" name="club" required 
                                    pattern="[A-Za-zÀ-ÿ0-9\s]{2,50}" 
                                    title="Nom de club valide">
-                            <div class="error-message" id="clubError">Nom de club invalide</div>
-                        </div>
-                        <div class="form-navigation">
-                            <button type="button" class="btn btn-prev">Précédent</button>
-                            <button type="button" class="btn btn-next">Suivant</button>
+                            <input type="url" id="clubFlag" name="clubFlag" 
+                                   placeholder="URL du Logo du Club"
+                                   pattern="https?://.*\.(jpg|jpeg|png|gif|webp)"
+                                   title="Lien URL valide vers le logo du club">
                         </div>
                     </div>
         
-                    <!-- Étape 4 : Statistiques -->
-                    <div class="step" id="statsStep">
-                        <h2>Statistiques du Joueur</h2>
+                    <div class="form-group">
+                        <label for="position">Position</label>
+                        <select id="position" name="position" required>
+                            <option value="">Sélectionner une position</option>
+                        </select>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="rating">Note Globale (1-99)</label>
+                        <input type="number" id="rating" name="rating" 
+                               min="1" max="99" required>
+                    </div>
+        
+                    <div id="outfieldStats" class="stats-grid">
+                        <h3 class="stats-header">Statistiques - Joueur de Champ</h3>
                         <div class="form-group">
-                            <label for="rating">Note Globale (1-99)</label>
-                            <input type="number" id="rating" name="rating" 
-                                   min="1" max="99" required>
-                            <div class="error-message" id="ratingError">Note entre 1 et 99</div>
+                            <label for="pace">Vitesse</label>
+                            <input type="number" id="pace" name="pace" min="1" max="99">
                         </div>
-                        
-                        <!-- Statistiques de champ -->
-                        <div id="outfieldStats">
-                            <div class="form-group">
-                                <label for="pace">Vitesse (1-99)</label>
-                                <input type="number" id="pace" name="pace" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="shooting">Tir (1-99)</label>
-                                <input type="number" id="shooting" name="shooting" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="passing">Passes (1-99)</label>
-                                <input type="number" id="passing" name="passing" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="dribbling">Dribble (1-99)</label>
-                                <input type="number" id="dribbling" name="dribbling" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="defending">Défense (1-99)</label>
-                                <input type="number" id="defending" name="defending" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="physical">Physique (1-99)</label>
-                                <input type="number" id="physical" name="physical" min="1" max="99">
-                            </div>
+                        <div class="form-group">
+                            <label for="shooting">Tir</label>
+                            <input type="number" id="shooting" name="shooting" min="1" max="99">
                         </div>
-        
-                        <!-- Statistiques de gardien -->
-                        <div id="goalkeeperStats" style="display:none;">
-                            <div class="form-group">
-                                <label for="diving">Plongeon (1-99)</label>
-                                <input type="number" id="diving" name="diving" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="handling">Maniement (1-99)</label>
-                                <input type="number" id="handling" name="handling" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="kicking">Dégagement (1-99)</label>
-                                <input type="number" id="kicking" name="kicking" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="reflexes">Réflexes (1-99)</label>
-                                <input type="number" id="reflexes" name="reflexes" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="speed">Vitesse (1-99)</label>
-                                <input type="number" id="speed" name="speed" min="1" max="99">
-                            </div>
-                            <div class="form-group">
-                                <label for="positioning">Positionnement (1-99)</label>
-                                <input type="number" id="positioning" name="positioning" min="1" max="99">
-                            </div>
+                        <div class="form-group">
+                            <label for="passing">Passes</label>
+                            <input type="number" id="passing" name="passing" min="1" max="99">
                         </div>
-        
-                        <div class="form-navigation">
-                            <button type="button" class="btn btn-prev">Précédent</button>
-                            <button type="submit" class="btn">Soumettre</button>
+                        <div class="form-group">
+                            <label for="dribbling">Dribble</label>
+                            <input type="number" id="dribbling" name="dribbling" min="1" max="99">
+                        </div>
+                        <div class="form-group">
+                            <label for="defending">Défense</label>
+                            <input type="number" id="defending" name="defending" min="1" max="99">
+                        </div>
+                        <div class="form-group">
+                            <label for="physical">Physique</label>
+                            <input type="number" id="physical" name="physical" min="1" max="99">
                         </div>
                     </div>
+        
+                    <div id="goalkeeperStats" class="stats-grid" style="display:none;">
+                        <h3 class="stats-header">Statistiques - Gardien</h3>
+                        <div class="form-group">
+                            <label for="diving">Plongeon</label>
+                            <input type="number" id="diving" name="diving" min="1" max="99">
+                        </div>
+                        <div class="form-group">
+                            <label for="handling">Maniement</label>
+                            <input type="number" id="handling" name="handling" min="1" max="99">
+                        </div>
+                        <div class="form-group">
+                            <label for="kicking">Dégagement</label>
+                            <input type="number" id="kicking" name="kicking" min="1" max="99">
+                        </div>
+                        <div class="form-group">
+                            <label for="reflexes">Réflexes</label>
+                            <input type="number" id="reflexes" name="reflexes" min="1" max="99">
+                        </div>
+                        <div class="form-group">
+                            <label for="speed">Vitesse</label>
+                            <input type="number" id="speed" name="speed" min="1" max="99">
+                        </div>
+                        <div class="form-group">
+                            <label for="positioning">Positionnement</label>
+                            <input type="number" id="positioning" name="positioning" min="1" max="99">
+                        </div>
+                    </div>
+        
+                    <button type="submit" class="btn-submit">Add Player</button>
                 </form>
-            </div>            
+                        </div>           
         </div>
     </div>
 </div>
-<div style="display: flex ; flex-wrap: wrap; gap: 30px; justify-content: space-between;">
-    <div class="player-card">
-        <div style="margin-top: 90px;">
-        <button>Add player +</button>
-        </div>
+<div class="substitution-button" id="subtitution" style="display: flex ; flex-wrap: wrap; gap: 30px; justify-content: space-between;">
+    <span>Substitutions</span>
+    <!-- Conteneur des joueurs en substitution -->
+    <div class="substitution-container">
+       
     </div>
-    <div class="player-card">CM</div>
-    <div class="player-card">CM</div>
-    <div class="player-card">CM</div>
-    <div class="player-card">CM</div>
-    <div class="player-card">CM</div>
-    <div class="player-card">CM</div>
-    <div class="player-card">CM</div>
-    <div class="player-card">CM</div>
-    <div class="player-card">CM</div>
-    <div class="player-card">CM</div>
 </div>
 <script src="/src/js/script.js"></script>
 </body>
