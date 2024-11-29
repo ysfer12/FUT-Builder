@@ -13,89 +13,276 @@ const positionMap = {
     'GK': document.getElementById('GK')
 };
 
-const subtitutionContainer = document.getElementById('subtitution');
+function saveToLocalStorage() {
+    localStorage.setItem('footballTeamData', JSON.stringify({
+        players: players,
+        formation: document.getElementById('formation-select').value
+    }));
+}
+
+function loadFromLocalStorage() {
+    const savedData = localStorage.getItem('footballTeamData');
+    if (savedData) {
+        const data = JSON.parse(savedData);
+        
+        if (data.formation) {
+            document.getElementById('formation-select').value = data.formation;
+        }
+
+        if (data.players && Array.isArray(data.players)) {
+            data.players.forEach(player => {
+                handlePlayerPlacement(player);
+                players.push(player);
+            });
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadFromLocalStorage);
+
+document.getElementById('formation-select').addEventListener('change', function() {
+    saveToLocalStorage();
+});
+
+const substitutionContainer = document.getElementById('subtitution');
 const form = document.getElementById('playerRegistrationForm');
 const playerTypeRadios = document.querySelectorAll('input[name="playerType"]');
 const outfieldStats = document.getElementById('outfieldStats');
 const goalkeeperStats = document.getElementById('goalkeeperStats');
 const position = document.getElementById('position');
 
+function validateTextField(input, minLength = 2) {
+    const value = input.value.trim();
+    const validNameRegex = /^[A-Za-zÀ-ÿ\s'-]+$/;
+    return value.length >= minLength && validNameRegex.test(value);
+}
+
+function validateImageURL(input) {
+    if (!input) return true;
+    
+    try {
+        const url = new URL(input);
+        const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
+        const fileExtension = url.pathname.split('.').pop().toLowerCase();
+        
+        return validExtensions.includes(fileExtension) && 
+               (url.protocol === 'http:' || url.protocol === 'https:');
+    } catch {
+        return false;
+    }
+}
+
+function validateRating(input) {
+    const value = parseInt(input.value);
+    return !isNaN(value) && value >= 10 && value <= 99;
+}
+
+function validateStats(statInputs) {
+    return Array.from(statInputs).every(input => {
+        const value = parseInt(input.value);
+        return !isNaN(value) && value >= 0 && value <= 99;
+    });
+}
+
+function populatePositions(type) {
+    if (type === 'outfield') {
+        position.innerHTML = `
+            <option value="">Sélectionner une position</option>
+            <option value="LW">LW</option>
+            <option value="ST">ST</option>
+            <option value="RW">RW</option>
+            <option value="CM">CM</option>
+            <option value="CDM">CDM</option>
+            <option value="CAM">CAM</option>
+            <option value="LB">LB</option>
+            <option value="CBL">CBL</option>
+            <option value="CBR">CBR</option>
+            <option value="RB">RB</option>
+        `;
+    } else {
+        position.innerHTML = `
+            <option value="">Sélectionner une position</option>
+            <option value="GK">GK</option>
+        `;
+    }
+}
+
 playerTypeRadios.forEach(radio => {
     radio.addEventListener('change', function() {
         if (this.value === 'outfield') {
             outfieldStats.style.display = 'grid';
             goalkeeperStats.style.display = 'none';
-            position.innerHTML = `
-                <option value="">Sélectionner une position</option>
-                <option value="LW">LW</option>
-                <option value="ST">ST</option>
-                <option value="RW">RW</option>
-                <option value="CM">CM</option>
-                <option value="CDM">CDM</option>
-                <option value="CAM">CAM</option>
-                <option value="LB">LB</option>
-                <option value="CB">CB</option>
-                <option value="RB">RB</option>
-            `;
-        } else if (this.value === 'goalkeeper') {
+            populatePositions('outfield');
+        } else {
             outfieldStats.style.display = 'none';
             goalkeeperStats.style.display = 'grid';
-            position.innerHTML = `
-                <option value="">Sélectionner une position</option>
-                <option value="GK">GK</option>
-            `;
+            populatePositions('goalkeeper');
         }
     });
 });
 
-function createPlayerCard(player) {
-    const card = document.createElement('div');
-    card.classList.add('player-card');
 
-    card.innerHTML = `
+
+function createPlayerCard(player) {
+    const playerCard = document.createElement('div');
+    playerCard.classList.add('player-card', 'filled');
+    playerCard.id = `player-${player.position}`;  
+    playerCard.draggable = true;
+
+    playerCard.innerHTML = `
     <div style="width: 100px; margin-right: 6px;">
-        <div style="display: flex; gap: 1px;">
-            <div style="display: flex; flex-direction: column; margin-top: 25px;">
-                <span style="color:white; font-weight: bold; font-size: 25px;">${player.rating}</span>
-                <span style="color:white; font-weight: bold; font-size: 15px;">${player.position}</span>            
+        <div style="display: flex; gap: 5px;">
+            <div style="display: flex; flex-direction: column; margin-top: 30px;">
+                <span class="player-rating">${player.rating}</span>
+                <span class="player-position">${player.position}</span>            
             </div>
-            <img src="${player.photo}" style="width: 80px; height: 80px; margin-top: 15px;" alt="">
+            <img src="${player.photo}" class="player-photo" alt="">
         </div>
         <div>
             <div>
-                <span style="color:white;font-weight: bold; font-size: 19px">${player.name}</span>
+                <span class="player-name">${player.name}</span>
             </div>
-            <div style="display: flex; gap: 3px;">
+            <div class="player-stat">
                 ${Object.entries(player.stats).map(([key, value]) => `
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <span style="color:white; font-weight: bold; font-size: 9px;">${key.toUpperCase()}</span>
-                    <span style="color:white; font-weight: bold; font-size: 9px;">${value}</span>
+                <div class="player-stat-values">
+                    <span>${key.toUpperCase()}</span>
+                    <span>${value}</span>
                 </div>
                 `).join('')}
             </div>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <img src="${player.nationalityFlag}" style="height: 20px; width: 20px;" alt="">
-                <img src="${player.clubFlag}" style="height: 20px; width: 20px;" alt="">
+            <div class="images-section">
+                <img src="${player.nationalityFlag}" alt="">
+                <img src="${player.clubFlag}" alt="">
             </div>
         </div>
     </div>
-        <div>
-                            <img src="/src/assets/img/arrow-goes-left-right-icon.svg" class="replace-btn" alt="">
-                            <button class="delete-btn">delete</button>
-                        </div>`;
+    <div>
+        <img src="/src/assets/img/exchange.png" class="replace-btn" alt="">
+        <img src="/src/assets/img/exchange.png" class="delete-btn" alt="">
 
-    return card;
+    </div>`;
+
+    const defaultCard = positionMap[player.position];
+    if (defaultCard) {
+        defaultCard.classList.add('disabled');
+        defaultCard.draggable = false;
+        defaultCard.style.opacity = '0.5';
+        defaultCard.style.pointerEvents = 'none';
+        
+        defaultCard.parentNode.insertBefore(playerCard, defaultCard);
+        defaultCard.style.display = 'none'; // Hide the default card
+    }
+
+    return playerCard;
+
+
 }
-
+function restoreDefaultCard(position) {
+    const defaultCard = positionMap[position];
+    if (defaultCard) {
+        defaultCard.classList.remove('disabled');
+        defaultCard.draggable = true;
+        defaultCard.style.opacity = '1';
+        defaultCard.style.pointerEvents = 'auto';
+        defaultCard.style.display = 'block';
+    }
+}
 function createDisabledCard(existingCard) {
     const disabledCard = existingCard.cloneNode(true);
     disabledCard.style.opacity = '0.5';
     disabledCard.style.pointerEvents = 'none';
+    disabledCard.querySelector('.replace-btn').style.display = 'none';
     return disabledCard;
+}
+
+function handlePlayerPlacement(player) {
+    const positionElement = positionMap[player.position];
+    
+    if (!positionElement) {
+        alert(`Position ${player.position} non valide.`);
+        return false;
+    }
+
+    const existingPlayerCard = document.querySelector(`#player-${player.position}`);
+
+    if (existingPlayerCard) {
+        const disabledCard = createDisabledCard(existingPlayerCard);
+        substitutionContainer.appendChild(disabledCard);
+        existingPlayerCard.remove();
+    }
+
+    createPlayerCard(player);
+    return true;
 }
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
+    let isValid = true;
+
+    const nameInput = document.getElementById('name');
+    if (!validateTextField(nameInput)) {
+        alert('Nom invalide. Minimum 2 caractères, lettres uniquement.');
+        isValid = false;
+    }
+
+    const nationalityInput = document.getElementById('nationality');
+    if (!validateTextField(nationalityInput)) {
+        alert('Nationalité invalide. Minimum 2 caractères, lettres uniquement.');
+        isValid = false;
+    }
+
+    const clubInput = document.getElementById('club');
+    if (!validateTextField(clubInput)) {
+        alert('Nom de club invalide.');
+        isValid = false;
+    }
+
+    const photoInput = document.getElementById('photo');
+    const nationalityFlagInput = document.getElementById('nationalityFlag');
+    const clubFlagInput = document.getElementById('clubFlag');
+    
+    if (photoInput.value && !validateImageURL(photoInput.value)) {
+        alert('URL de photo invalide. Utilisez jpg, jpeg, png, gif, webp ou svg.');
+        isValid = false;
+    }
+    
+    if (nationalityFlagInput.value && !validateImageURL(nationalityFlagInput.value)) {
+        alert('URL du drapeau invalide. Utilisez jpg, jpeg, png, gif, webp ou svg.');
+        isValid = false;
+    }
+    
+    if (clubFlagInput.value && !validateImageURL(clubFlagInput.value)) {
+        alert('URL du logo de club invalide. Utilisez jpg, jpeg, png, gif, webp ou svg.');
+        isValid = false;
+    }
+
+    if (!position.value) {
+        alert('Veuillez sélectionner une position.');
+        isValid = false;
+    }
+
+    const ratingInput = document.getElementById('rating');
+    if (!validateRating(ratingInput)) {
+        alert('Note globale invalide. Doit être entre 10 et 99.');
+        isValid = false;
+    }
+
+    const playerType = document.querySelector('input[name="playerType"]:checked').value;
+    if (playerType === 'outfield') {
+        const outfieldStatInputs = outfieldStats.querySelectorAll('input[type="number"]');
+        if (!validateStats(outfieldStatInputs)) {
+            alert('Statistiques de joueur de champ invalides. Valeurs entre 0 et 99.');
+            isValid = false;
+        }
+    } else {
+        const goalkeeperStatInputs = goalkeeperStats.querySelectorAll('input[type="number"]');
+        if (!validateStats(goalkeeperStatInputs)) {
+            alert('Statistiques de gardien invalides. Valeurs entre 0 et 99.');
+            isValid = false;
+        }
+    }
+
+    if (!isValid) return;
 
     const formData = new FormData(form);
     const playerData = Object.fromEntries(formData.entries());
@@ -109,12 +296,12 @@ form.addEventListener('submit', function(e) {
             SHOT: playerData.defending,
         }
         : {
-            diving: playerData.diving,
-            handling: playerData.handling,
-            kicking: playerData.kicking,
-            reflexes: playerData.reflexes,
-            speed: playerData.speed,
-            positioning: playerData.positioning
+            div: playerData.diving,
+            hand: playerData.handling,
+            kick: playerData.kicking,
+            ref: playerData.reflexes,
+            sp: playerData.speed,
+            pos: playerData.positioning
         };
 
     const player = {
@@ -130,47 +317,69 @@ form.addEventListener('submit', function(e) {
         stats: stats
     };
 
-    if (!player.position) {
-        alert('Please select a position for the player.');
-        return;
+    if (handlePlayerPlacement(player)) {
+        players.push(player);
+        saveToLocalStorage(); 
+        form.reset();
+        outfieldStats.style.display = 'grid';
+        goalkeeperStats.style.display = 'none';
+        populatePositions('outfield');
+    }
+});
+
+substitutionContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+        const playerCard = e.target.closest('.player-card');
+        const position = playerCard.id.replace('player-', '');
+        restoreDefaultCard(position);
+        playerCard.remove();
+        
+        const playerIndex = players.findIndex(p => p.position === position);
+        if (playerIndex !== -1) {
+            players.splice(playerIndex, 1);
+            saveToLocalStorage();
+        }
     }
 
-    const targetPosition = player.position === 'CB' 
-        ? (document.getElementById('CBL').innerHTML === 'CB' ? 'CBL' : 'CBR') 
-        : player.position;
-
-    const positionDiv = positionMap[targetPosition];
-    if (positionDiv.children.length > 0) {
-        const existingCard = positionDiv.children[0];
-        const disabledCard = createDisabledCard(existingCard);
+    if (e.target.classList.contains('replace-btn')) {
+        const playerCard = e.target.closest('.player-card');
+        const positionSelect = document.getElementById('position');
+        const playerData = playerCard.querySelector('span[style="color:white; font-weight: bold; font-size: 15px;"]');
         
-        positionDiv.innerHTML = '';
-        positionDiv.appendChild(createPlayerCard(player));
+        if (playerData) {
+            const position = playerData.textContent;
+            Array.from(positionSelect.options).forEach(option => {
+                if (option.value === position) {
+                    positionSelect.value = position;
+                }
+            });
+        }
         
-        subtitutionContainer.appendChild(disabledCard);
-        
-        alert(`${targetPosition} was replaced. Previous player moved to substitution.`);
-    } else {
-        positionDiv.innerHTML = ''; 
-        positionDiv.appendChild(createPlayerCard(player));
+        playerCard.remove();
+        saveToLocalStorage(); 
     }
+});
 
-    players.push(player);
+function filterPlayersByPosition(position) {
+    const playerCards = document.querySelectorAll('#subtitution .player-card');
+    
+    playerCards.forEach(card => {
+        const playerPosition = card.querySelector('.player-position').textContent;
+        
+        if (position === 'ALL') {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = playerPosition === position ? 'flex' : 'none';
+        }
+    });
+}
 
-
-    form.reset();
-    outfieldStats.style.display = 'grid';
-    goalkeeperStats.style.display = 'none';
-    position.innerHTML = `
-        <option value="">Sélectionner une position</option>
-        <option value="LW">LW</option>
-        <option value="ST">ST</option>
-        <option value="RW">RW</option>
-        <option value="CM">CM</option>
-        <option value="CDM">CDM</option>
-        <option value="CAM">CAM</option>
-        <option value="LB">LB</option>
-        <option value="CB">CB</option>
-        <option value="RB">RB</option>
-    `;
+document.querySelector('.position-filters').addEventListener('click', (e) => {
+    if (e.target.classList.contains('filter-btn')) {
+        document.querySelectorAll('.filter-btn').forEach(btn => 
+            btn.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        filterPlayersByPosition(e.target.dataset.position);
+    }
 });
