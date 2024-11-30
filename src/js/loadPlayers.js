@@ -56,3 +56,33 @@ function displaySubstitutionPlayers(data) {
 
 // Load players when the page loads
 document.addEventListener('DOMContentLoaded', loadSubstitutionPlayers);
+// Add this to your existing JavaScript file
+function filterPlayers(position) {
+    const playerCards = document.querySelectorAll('.player-card');
+    
+    playerCards.forEach(card => {
+        const playerPosition = card.querySelector('.player-position').textContent;
+        if (position === 'ALL' || playerPosition === position) {
+            card.style.display = 'flex';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Add click event listeners to filter buttons
+document.addEventListener('DOMContentLoaded', () => {
+    loadSubstitutionPlayers();
+    
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+            // Filter players based on selected position
+            filterPlayers(button.dataset.position);
+        });
+    });
+});
