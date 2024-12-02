@@ -87,28 +87,28 @@ body {
 
 .forwards {
     position: relative;
-    top: -145px;
+    top: -100px;
  }
 
 .midfielders {
     position: relative;
-    top: -150px;
+    top: -100px;
 }
 
 .defenders {
     position: relative;
-    top: -190px;
+    top: -110px;
 
 }
 
 .goalkeeper {
 position: relative;
-top: -300px;
+top: -210px;
 }
 
 /* Player Cards */
 .default-card {
-    width: 110px;
+    width: 130px;
     height: 230px;
     background-image: url('/src/assets/img/placeholder-card-normal.webp');
     background-size: contain;
@@ -348,7 +348,7 @@ top: -300px;
 
 #subtitution-container-left {
     width: 60%;
-    margin-top: 20px;
+    margin-top: -200px;
     padding: 20px;
     background-color: var(--secondary-color);
     border-radius: 10px;
@@ -356,7 +356,7 @@ top: -300px;
 
 #subtitution-container-right {
     width: 40%;
-    margin-top: 20px;
+    margin-top: -200px;
     padding: 20px;
     background-color: var(--secondary-color);
     border-radius: 10px;
@@ -473,6 +473,7 @@ top: -300px;
     }
   
     .forwards {
+        display: flex;
       position: relative;
       top: -50px;
     }
@@ -602,68 +603,8 @@ top: -300px;
       transition: background-color 0.3s ease;
     }
   
-    .st-post {
-      display: flex;
-      width: 50px;
-      height: 30px;
-      justify-content: center;
-      border-radius: 50%;
-      padding: 3px;
-      background-color: var(--primary-color);
-      margin-bottom: 100px;
-      position: absolute;
-      right: 22%;
-      top: 71%;
-    }
-  
-    .rw-post {
-      display: flex;
-      width: 50px;
-      height: 30px;
-      justify-content: center;
-      border-radius: 50%;
-      padding: 3px;
-      background-color: var(--primary-color);
-      margin-bottom: 100px;
-      position: absolute;
-      right: 47%;
-      top: 71%;
-    }
-      .lw-post {
-        display: none;
-    }
-
-    .cm-post {
-        display: none;
-    }
-
-    .cdm-post {
-        display: none;
-    }
-
-    .cam-post {
-        display: none;
-    }
-
-    .lb-post {
-        display: none;
-    }
-
-    .cbl-post {
-        display: none;
-    }
-
-    .cbr-post {
-        display: none;
-    }
-
-    .rb-post {
-        display: none;
-    }
-
-    .gk-post {
-        display: none;
-    }
+    
+ 
 
 }
 
@@ -678,7 +619,7 @@ top: -300px;
         margin-bottom: 100px;
         position: absolute;
         right: 22%;
-        top: 71%;
+        top: 100px;
     }
 
     .rw-post {
@@ -761,8 +702,8 @@ top: -300px;
         background-color: var(--primary-color);
         margin-bottom: 100px;
         position: absolute;
-        right: 84%;
-        top: 71%;
+        right: 89%;
+        top: 77%;
     }
 
     .cbl-post {
@@ -776,7 +717,7 @@ top: -300px;
         margin-bottom: 100px;
         position: absolute;
         right: 60%;
-        top: 71%;
+        top: 77%;
     }
 
     .cbr-post {
@@ -803,8 +744,8 @@ top: -300px;
         background-color: var(--primary-color);
         margin-bottom: 100px;
         position: absolute;
-        right: 9%;
-        top: 87%;
+        right: 5%;
+        top: 77%;
     }
 
     .gk-post {
@@ -818,7 +759,7 @@ top: -300px;
         margin-bottom: 100px;
         position: absolute;
         right: 47%;
-        top: 71%;
+        top: 85%;
     }
 
     .position-filters {
