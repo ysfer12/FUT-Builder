@@ -86,19 +86,24 @@ body {
 }
 
 .forwards {
-    margin-bottom: 20px;
-}
+    position: relative;
+    top: -145px;
+ }
 
 .midfielders {
-    margin-top: -30px;
+    position: relative;
+    top: -150px;
 }
 
 .defenders {
-    margin-top: -50px;
+    position: relative;
+    top: -190px;
+
 }
 
 .goalkeeper {
-    margin-top: -120px;
+position: relative;
+top: -300px;
 }
 
 /* Player Cards */
@@ -399,209 +404,232 @@ body {
 
 @media (max-width: 768px) {
     .formContainer {
-        margin-top: 150px;
-        height: 300px;
-        max-width: 100%;
+      margin-top: 150px;
+      height: 300px;
+      max-width: 100%;
     }
-
+  
     #playerRegistrationForm {
-        overflow-y: auto;
-        flex-grow: 1;
-        padding-right: 10px;
+      overflow-y: auto;
+      flex-grow: 1;
+      padding-right: 10px;
     }
-
+  
     #playerRegistrationForm::-webkit-scrollbar {
-        width: 8px;
+      width: 8px;
     }
-
+  
     #playerRegistrationForm::-webkit-scrollbar-track {
-        background: #2a2a2a;
+      background: #2a2a2a;
     }
-
+  
     #playerRegistrationForm::-webkit-scrollbar-thumb {
-        background: blue;
-        border-radius: 4px;
+      background: blue;
+      border-radius: 4px;
     }
-
+  
     #subtitution-container-left {
-        width: 60%;
-        margin-top: 20px;
-        padding: 20px;
-        background-color: var(--secondary-color);
-        border-radius: 10px;
-        margin-bottom: 900px;
+      width: 60%;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+      margin-bottom: 900px;
     }
-
+  
     #subtitution-container-right {
-        width: 40%;
-        margin-top: 20px;
-        padding: 20px;
-        background-color: var(--secondary-color);
-        border-radius: 10px;
-        margin-bottom: 900px;
+      width: 40%;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+      margin-bottom: 900px;
     }
-
+  
     .field-container {
-        width: 900px;
-        height: 1300px;
+      width: 100vw;
+      height: 100vh;
     }
-
+  
     .field {
-        width: 100%;
-        height: 100%;
+      width: 100%;
+      height: 100%;
     }
-
+  
     .field {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
     }
-
+  
     .line {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        gap: 10px;
-        position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      gap: 10px;
+      position: relative;
     }
-
+  
     .forwards {
-        position: relative;
-        top: -50px;
+      position: relative;
+      top: -50px;
     }
-
+  
     .midfielders {
-        position: relative;
-        top: -500px;
+      position: relative;
+      top: -500px;
     }
-
+  
     .defenders {
-        position: relative;
-        top: -900px;
+      position: relative;
+      top: -900px;
     }
-
+  
     .goalkeeper {
-        position: relative;
-        top: -800px;
+      position: relative;
+      top: -800px;
     }
-
+  
     .formContainer {
-        margin-top: 150px;
-        height: auto;
-        max-width: 100%;
+      margin-top: 150px;
+      height: auto;
+      max-width: 100%;
     }
-
+  
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
-
+  
     .player-card, .default-card, .substitution-card {
-        width: 100px;
-        height: 100px;
+      width: 100px;
+      height: 100px;
     }
-
+  
     .player-card > div {
-        position: relative;
-        z-index: 1;
+      position: relative;
+      z-index: 1;
     }
-
+  
     .player-rating {
-        color: white;
-        font-weight: bold;
-        font-size: 15px;
-        margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      margin-left: 15px;
     }
-
+  
     .player-position {
-        color: white;
-        font-weight: bold;
-        font-size: 15px;
-        margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      margin-left: 15px;
     }
-
+  
     .player-photo {
-        width: 35px;
-        height: 35px;
-        margin-top: 25px;
+      width: 35px;
+      height: 35px;
+      margin-top: 25px;
     }
-
+  
     .player-name {
-        color: white;
-        font-weight: bold;
-        font-size: 15px;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
     }
-
+  
     .player-card:hover {
-        transform: scale(1.05);
+      transform: scale(1.05);
     }
-
+  
     .player-stat {
-        display: flex;
-        gap: 2px;
+      display: flex;
+      gap: 2px;
     }
-
+  
     .player-stat-values {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 3px;
     }
-
+  
     .player-stat-values span {
-        color: white;
-        font-weight: bold;
-        font-size: 9px;
+      color: white;
+      font-weight: bold;
+      font-size: 9px;
     }
-
+  
     .images-section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
-
+  
     .images-section img {
-        height: 30px;
-        width: 30px;
-        border-radius: 50%;
-        margin-top: 3px;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      margin-top: 3px;
     }
-
+  
     .replace-btn {
-        display: none;
-        position: absolute;
-        right: -90px;
-        top: -250px;
-        height: 30px;
-        width: 30px;
-        border-radius: 50%;
-        background-color: var(--primary-color);
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+      display: none;
+      position: absolute;
+      right: -90px;
+      top: -250px;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-
+  
     .delete-btn {
-        display: none;
-        position: absolute;
-        right: -95px;
-        top: -210px;
-        height: 30px;
-        width: 30px;
-        border-radius: 50%;
-        background-color: var(--remove-color);
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+      display: none;
+      position: absolute;
+      right: -95px;
+      top: -210px;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      background-color: var(--remove-color);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-
+  
+    .st-post {
+      display: flex;
+      width: 50px;
+      height: 30px;
+      justify-content: center;
+      border-radius: 50%;
+      padding: 3px;
+      background-color: var(--primary-color);
+      margin-bottom: 100px;
+      position: absolute;
+      right: 22%;
+      top: 71%;
+    }
+  
     .rw-post {
-        display: none;
+      display: flex;
+      width: 50px;
+      height: 30px;
+      justify-content: center;
+      border-radius: 50%;
+      padding: 3px;
+      background-color: var(--primary-color);
+      margin-bottom: 100px;
+      position: absolute;
+      right: 47%;
+      top: 71%;
     }
-
-    .lw-post {
+      .lw-post {
         display: none;
     }
 
