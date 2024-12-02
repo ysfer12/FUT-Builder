@@ -25,7 +25,7 @@
          <div style="background-image: url(./src/assets/img/STADIUMBG.png) ; background-repeat: no-repeat; height: 100%; width: 100%; ">
             
             <div style="display: flex; justify-content: space-between; gap: 15px;" >
-              <div style=" position: absolute; margin-top: 200px; background-image: url('/src/assets/img/stadvirt.svg'); height:100%; max-width: 1000px; width: 100%; background-size: contain; position: relative; z-index: 1; background-repeat: no-repeat; ">
+              <div class="field-container">
                 <div class="field">
                     <div class="line forwards">                   
                         <div class="default-card" id="LW" draggable="true"></div>
@@ -68,6 +68,8 @@
             </div>
     
             <div class="formContainer">
+                <input type="checkbox" id="form-toggle">
+<label for="form-toggle" class="form-toggle-label"></label>
                 <h1 class="form-title">Inscription Joueur</h1>
         
                 <form id="playerRegistrationForm">
@@ -242,7 +244,7 @@
                     <button class="filter-btn" data-position="RB">RB</button>
                     <button class="filter-btn" data-position="GK">GK</button>
                     <div id="subtitution-all">
-                        
+
                     </div>
                 </div>
             </div>
