@@ -87,12 +87,12 @@ body {
 
 .forwards {
     position: relative;
-    top: -100px;
+    top: -90px;
  }
 
 .midfielders {
     position: relative;
-    top: -100px;
+    top: -70px;
 }
 
 .defenders {
@@ -402,7 +402,7 @@ top: -210px;
     object-fit: cover;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 769px) {
     .formContainer {
       margin-top: 150px;
       height: 300px;
@@ -449,6 +449,216 @@ top: -210px;
     .field-container {
       width: 100vw;
       height: 100vh;
+        
+    }
+  
+    .field {
+      width: 100%;
+      height: 100%;
+    }
+  
+    .field {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+  
+    .line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      gap: 10px;
+      position: relative;
+    }
+  
+    .forwards {
+        display: flex;
+      position: relative;
+      top: -80px;
+    }
+  
+    .midfielders {
+      position: relative;
+      top: -190px;
+    }
+  
+    .defenders {
+      position: relative;
+      top: -320px;
+    }
+  
+    .goalkeeper {
+      position: relative;
+      top: -350px;
+    }
+  
+    .formContainer {
+      margin-top: 150px;
+      height: auto;
+      max-width: 100%;
+    }
+  
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .player-card, .default-card, .substitution-card {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .player-card > div {
+      position: relative;
+      z-index: 1;
+    }
+  
+    .player-rating {
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      margin-left: 15px;
+    }
+  
+    .player-position {
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+      margin-left: 15px;
+    }
+  
+    .player-photo {
+      width: 35px;
+      height: 35px;
+      margin-top: 25px;
+    }
+  
+    .player-name {
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    }
+  
+    .player-card:hover {
+      transform: scale(1.05);
+    }
+  
+    .player-stat {
+      display: flex;
+      gap: 2px;
+    }
+  
+    .player-stat-values {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 3px;
+    }
+  
+    .player-stat-values span {
+      color: white;
+      font-weight: bold;
+      font-size: 9px;
+    }
+  
+    .images-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+  
+    .images-section img {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      margin-top: 3px;
+    }
+  
+    .replace-btn {
+      display: none;
+      position: absolute;
+      right: -90px;
+      top: -250px;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .delete-btn {
+      display: none;
+      position: absolute;
+      right: -95px;
+      top: -210px;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      background-color: var(--remove-color);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    
+ 
+
+}
+@media (max-width: 468px) {
+    .formContainer {
+      margin-top: 150px;
+      height: 200px;
+      max-width: 100%;
+    }
+  
+    #playerRegistrationForm {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding-right: 10px;
+    }
+  
+    #playerRegistrationForm::-webkit-scrollbar {
+      width: 8px;
+    }
+  
+    #playerRegistrationForm::-webkit-scrollbar-track {
+      background: #2a2a2a;
+    }
+  
+    #playerRegistrationForm::-webkit-scrollbar-thumb {
+      background: blue;
+      border-radius: 4px;
+    }
+  
+    #subtitution-container-left {
+      width: 60%;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+      margin-bottom: 900px;
+    }
+  
+    #subtitution-container-right {
+      width: 40%;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+      margin-bottom: 900px;
+    }
+  
+    .field-container {
+      width: 100vw;
+      height: 100vh;
+        padding: 50px;
+        margin-top: 50px;
+        margin-right: 50px;
+        position: absolute;
     }
   
     .field {
@@ -608,6 +818,7 @@ top: -210px;
 
 }
 
+
     .st-post {
         display: flex;
         width: 50px;
@@ -619,7 +830,7 @@ top: -210px;
         margin-bottom: 100px;
         position: absolute;
         right: 22%;
-        top: 100px;
+        top: 85%;
     }
 
     .rw-post {
@@ -633,7 +844,7 @@ top: -210px;
         margin-bottom: 100px;
         position: absolute;
         right: 47%;
-        top: 71%;
+        top: 85%;
     }
 
     .lw-post {
@@ -647,7 +858,7 @@ top: -210px;
         margin-bottom: 100px;
         position: absolute;
         right: 72%;
-        top: 71%;
+        top: 85%;
     }
 
     .cm-post {
@@ -661,7 +872,7 @@ top: -210px;
         margin-bottom: 100px;
         position: absolute;
         right: 72%;
-        top: 71%;
+        top: 87%;
     }
 
     .cdm-post {
@@ -675,7 +886,7 @@ top: -210px;
         margin-bottom: 100px;
         position: absolute;
         right: 47%;
-        top: 71%;
+        top: 87%;
     }
 
     .cam-post {
@@ -689,7 +900,7 @@ top: -210px;
         margin-bottom: 100px;
         position: absolute;
         right: 22%;
-        top: 71%;
+        top: 87%;
     }
 
     .lb-post {
@@ -716,8 +927,8 @@ top: -210px;
         background-color: var(--primary-color);
         margin-bottom: 100px;
         position: absolute;
-        right: 60%;
-        top: 77%;
+        right: 61%;
+        top: 80%;
     }
 
     .cbr-post {
@@ -731,7 +942,7 @@ top: -210px;
         margin-bottom: 100px;
         position: absolute;
         right: 34%;
-        top: 71%;
+        top: 80%;
     }
 
     .rb-post {

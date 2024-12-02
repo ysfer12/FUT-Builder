@@ -335,16 +335,9 @@ function addInitialStyles() {
     if (!fieldPlayerCard) return;
   
     const position = fieldPlayerCard.querySelector('.player-position').textContent;
-    
-    // Check if player already exists in substitution
-    const existingSubstitute = Array.from(document.querySelectorAll('#subtitution .player-card'))
-      .find(card => {
-        const cardPosition = card.querySelector('.player-position').textContent;
-        const cardName = card.querySelector('.player-name').textContent;
-        return cardPosition === position && 
-               cardName === fieldPlayerCard.querySelector('.player-name').textContent;
-      });
   
+    // Check if player already exists in substitution
+    const existingSubstitute = document.querySelector(`#subtitution .player-card[data-position="${position}"]`);
     if (existingSubstitute) {
       showNotification('Ce joueur est déjà dans les remplaçants', 'error');
       return;
@@ -353,16 +346,17 @@ function addInitialStyles() {
     // Create substitute card
     const substituteCard = fieldPlayerCard.cloneNode(true);
     substituteCard.id = `substitute-${position}-${Date.now()}`;
+    substituteCard.dataset.position = position;
     substituteCard.style.opacity = '1';
     substituteCard.style.pointerEvents = 'auto';
-    
+  
     // Add to substitution container
     document.getElementById('subtitution').appendChild(substituteCard);
-    
+  
     // Restore default card in field
     restoreDefaultCard(position);
     fieldPlayerCard.remove();
-    
+  
     // Update players array
     const playerIndex = players.findIndex(p => p.position === position);
     if (playerIndex !== -1) {
@@ -372,7 +366,7 @@ function addInitialStyles() {
   
     showNotification('Joueur déplacé vers les remplaçants', 'info');
   }
-  
+    
   // Function implementation for handleSubstituteReplace
   function handleSubstituteReplace(e) {
     const substituteCard = e.target.closest('.player-card');
