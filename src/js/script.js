@@ -1,81 +1,3 @@
-// Add initial CSS styles
-function addInitialStyles() {
-    const style = document.createElement('style');
-    style.textContent = `
-      .player-card {
-        position: relative;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        cursor: pointer;
-      }
-      
-      .button-container {
-        position: absolute;
-        right: 5px;
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-      
-      .player-card:hover .button-container {
-        opacity: 1;
-      }
-      
-      .replace-btn,
-      .delete-btn {
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-        padding: 3px;
-        border-radius: 4px;
-        background-color: rgba(0, 0, 0, 0.6);
-        transition: all 0.2s ease;
-      }
-      
-      .replace-btn:hover,
-      .delete-btn:hover {
-        background-color: rgba(0, 0, 0, 0.8);
-        transform: scale(1.1);
-      }
-      
-      #subtitution .player-card {
-        margin: 10px;
-        opacity: 1 !important;
-      }
-      
-      .notification {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #333;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        z-index: 1000;
-        animation: slideIn 0.3s ease;
-      }
-      
-      @keyframes slideIn {
-        from {
-          transform: translateY(-100%);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
-      
-      .notification.success { background: #4CAF50; }
-      .notification.error { background: #f44336; }
-      .notification.info { background: #2196F3; }
-    `;
-    document.head.appendChild(style);
-  }
   
   // Initialize arrays and maps
   function initializeArraysAndMaps() {
@@ -171,7 +93,7 @@ function addInitialStyles() {
   function validateStats(statInputs) {
     return Array.from(statInputs).every(input => {
       const value = parseInt(input.value);
-      return !isNaN(value) && value >= 0 && value <= 99;
+      return !isNaN(value) && value >= 10 && value <= 99;
     });
   }
   
@@ -234,12 +156,13 @@ function addInitialStyles() {
     <div class="button-container">
       <img src="/src/assets/img/exchange.png" class="replace-btn" alt="Replace" title="Replace Player">
       <img src="/src/assets/img/exchange.png" class="delete-btn" alt="Delete" title="Remove Player">
+        <img src="/src/assets/img/pen.png" class="update-btn" alt="Update" title="Update Player">
+
     </div>`;
   
     const defaultCard = positionMap[player.position];
     if (defaultCard) {
       defaultCard.classList.add('disabled');
-      defaultCard.draggable = false;
       defaultCard.style.opacity = '0.5';
       defaultCard.style.pointerEvents = 'none';
       defaultCard.parentNode.insertBefore(playerCard, defaultCard);
@@ -317,6 +240,9 @@ function addInitialStyles() {
       } else if (e.target.classList.contains('delete-btn')) {
         handleFieldPlayerDelete(e);
       }
+     else if (e.target.classList.contains('update-btn')) {
+        handlePlayerUpdate(e);
+      }
     });
   
     // Substitution player buttons
@@ -326,7 +252,70 @@ function addInitialStyles() {
       } else if (e.target.classList.contains('delete-btn')) {
         handleSubstituteDelete(e);
       }
+      else if (e.target.classList.contains('update-btn')) {
+        handlePlayerUpdate(e);
+      }
     });
+  }
+  function handlePlayerUpdate(e) {
+    const playerCard = e.target.closest('.player-card');
+    if (!playerCard) return;
+  
+    const playerData = getPlayerDataFromCard(playerCard);
+    populateFormWithPlayerData(playerData);
+    
+    // Changer le texte du bouton submit
+    const submitBtn = document.querySelector('#playerRegistrationForm button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.textContent = 'Mettre à jour';
+      submitBtn.dataset.updateMode = 'true';
+      submitBtn.dataset.playerPosition = playerData.position;
+    }
+    
+    // Faire défiler jusqu'au formulaire
+    document.getElementById('playerRegistrationForm').scrollIntoView({ behavior: 'smooth' });
+  }
+  
+  // Fonction pour pré-remplir le formulaire
+  function populateFormWithPlayerData(playerData) {
+    // Remplir les champs de base
+    document.getElementById('name').value = playerData.name;
+    document.getElementById('nationality').value = playerData.nationality || '';
+    document.getElementById('club').value = playerData.club || '';
+    document.getElementById('position').value = playerData.position;
+    document.getElementById('rating').value = playerData.rating;
+    
+    // Sélectionner le type de joueur
+    const playerType = playerData.position === 'GK' ? 'goalkeeper' : 'outfield';
+    document.querySelector(`input[name="playerType"][value="${playerType}"]`).checked = true;
+    
+    // Afficher les stats appropriées
+    const { outfieldStats, goalkeeperStats } = getDOM();
+    outfieldStats.style.display = playerType === 'outfield' ? 'grid' : 'none';
+    goalkeeperStats.style.display = playerType === 'goalkeeper' ? 'grid' : 'none';
+    
+    // Remplir les stats
+    if (playerType === 'outfield') {
+      document.getElementById('pace').value = playerData.stats.DRIF || '';
+      document.getElementById('shooting').value = playerData.stats.DIF || '';
+      document.getElementById('passing').value = playerData.stats.PHY || '';
+      document.getElementById('dribbling').value = playerData.stats.PAC || '';
+      document.getElementById('defending').value = playerData.stats.SHOT || '';
+    } else {
+      document.getElementById('diving').value = playerData.stats.div || '';
+      document.getElementById('handling').value = playerData.stats.hand || '';
+      document.getElementById('kicking').value = playerData.stats.kick || '';
+      document.getElementById('reflexes').value = playerData.stats.ref || '';
+      document.getElementById('speed').value = playerData.stats.sp || '';
+      document.getElementById('positioning').value = playerData.stats.pos || '';
+    }
+  
+    // Remplir les URLs des images
+    document.getElementById('photo').value = playerData.photo || '';
+    document.getElementById('nationalityFlag').value = playerData.nationalityFlag || '';
+    document.getElementById('clubFlag').value = playerData.clubFlag || '';
+  
+    populatePositions(playerType);
   }
   
   // Function implementation for handleFieldPlayerReplace
@@ -366,7 +355,7 @@ function addInitialStyles() {
   
     showNotification('Joueur déplacé vers les remplaçants', 'info');
   }
-    
+
   // Function implementation for handleSubstituteReplace
   function handleSubstituteReplace(e) {
     const substituteCard = e.target.closest('.player-card');
@@ -566,19 +555,50 @@ function handleSubstituteDelete(e) {
           stats: stats
         };
   
-        if (handlePlayerPlacement(player)) {
-          players.push(player);
-          saveToLocalStorage();
-          resetForm();
-          showNotification('Joueur ajouté avec succès', 'success');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn.dataset.updateMode === 'true') {
+          // Mode mise à jour
+          const oldPosition = submitBtn.dataset.playerPosition;
+          const playerIndex = players.findIndex(p => p.position === oldPosition);
+          
+          if (playerIndex !== -1) {
+            // Supprimer l'ancienne carte
+            const oldCard = document.querySelector(`#player-${oldPosition}`);
+            if (oldCard) {
+              oldCard.remove();
+              restoreDefaultCard(oldPosition);
+            }
+            
+            // Placer le joueur mis à jour
+            if (handlePlayerPlacement(player)) {
+              players[playerIndex] = player;
+              saveToLocalStorage();
+              resetForm();
+              showNotification('Joueur mis à jour avec succès', 'success');
+            }
+          }
+          
+          // Réinitialiser le bouton
+          submitBtn.textContent = 'Ajouter';
+          submitBtn.dataset.updateMode = 'false';
+          delete submitBtn.dataset.playerPosition;
+          
+        } else {
+          // Mode ajout normal
+          if (handlePlayerPlacement(player)) {
+            players.push(player);
+            saveToLocalStorage();
+            resetForm();
+            showNotification('Joueur ajouté avec succès', 'success');
+          }
         }
       } catch (error) {
-        showNotification('Erreur lors de l\'ajout du joueur', 'error');
+        showNotification('Erreur lors de l\'opération', 'error');
         console.error(error);
       }
     });
   }
-  
+    
   // Form Reset
   function resetForm() {
     const { form, outfieldStats, goalkeeperStats } = getDOM();
@@ -586,8 +606,15 @@ function handleSubstituteDelete(e) {
     outfieldStats.style.display = 'grid';
     goalkeeperStats.style.display = 'none';
     populatePositions('outfield');
-  }
-  
+    
+    // Réinitialiser le bouton submit
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.textContent = 'Ajouter';
+      submitBtn.dataset.updateMode = 'false';
+      delete submitBtn.dataset.playerPosition;
+    }
+  }  
   // Radio Button Handlers
   function initializeRadioButtons() {
     const { playerTypeRadios } = getDOM();
@@ -610,12 +637,11 @@ function handleSubstituteDelete(e) {
   
   // Initialize Everything
   function initialize() {
-    addInitialStyles();
     initializeArraysAndMaps();
     initializeButtonHandlers();
     loadFromLocalStorage();
     
-    const { playerTypeRadios } = getDOM();
+    const playerTypeRadios = document.querySelectorAll('input[name="playerType"]');
     const defaultRadio = playerTypeRadios.item(0);
     if (defaultRadio) {
       defaultRadio.checked = true;
@@ -631,8 +657,10 @@ function handleSubstituteDelete(e) {
     initializeFormSubmit();
     initializeRadioButtons();
     initializeFormationChange();
+    initializeExtraFeatures();
+    initializeStatTracking();
   }
-  
+    
   // Error Handler
   window.addEventListener('error', function(e) {
     showNotification('Une erreur est survenue', 'error');
@@ -683,7 +711,7 @@ function handleSubstituteDelete(e) {
       }));
     }
   };
-  
+
   // Search and Filter System
   function searchPlayers(searchTerm) {
     const allCards = document.querySelectorAll('.player-card');
@@ -819,42 +847,36 @@ function handleSubstituteDelete(e) {
   }
   
   // Add event listeners for new features
-  function initializeExtraFeatures() {
-    // Initialize stats tracker
-    statsTracker.init();
-  
-    // Add export button listener
-    const exportBtn = document.querySelector('#export-btn');
-    if (exportBtn) {
-      exportBtn.addEventListener('click', exportTeam);
-    }
-  
-    // Add import button listener
-    const importInput = document.querySelector('#import-input');
-    if (importInput) {
-      importInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-          importTeam(e.target.files[0]);
-        }
-      });
-    }
-  
-    // Add search input listener
-    const searchInput = document.querySelector('#search-input');
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        searchPlayers(e.target.value);
-      });
-    }
-  
-    // Add sort buttons listeners
-    document.querySelectorAll('.sort-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        sortPlayers(btn.dataset.criteria);
-      });
+function initializeExtraFeatures() {
+  statsTracker.init();
+
+  const exportBtn = document.querySelector('#export-btn');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', exportTeam);
+  }
+
+  const importInput = document.querySelector('#import-input');
+  if (importInput) {
+    importInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        importTeam(e.target.files[0]);
+      }
     });
   }
-  
+
+  const searchInput = document.querySelector('#search-input');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchPlayers(e.target.value);
+    });
+  }
+
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sortPlayers(btn.dataset.criteria);
+    });
+  });
+}  
   // Update the existing functions to track stats
   function initializeStatTracking() {
     const originalHandleFieldPlayerReplace = handleFieldPlayerReplace;
@@ -877,5 +899,5 @@ function handleSubstituteDelete(e) {
     initializeStatTracking();
   }
   
-  // Call the main initialization function
   initializeApplication();
+  
