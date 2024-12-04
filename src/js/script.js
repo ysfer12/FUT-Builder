@@ -125,6 +125,8 @@ function createPlayerCard(player) {
 
     return card;
 }
+// localStorage.clear()
+
 
 function handlePlayerPlacement(player) {
     const defaultCard = positionMap[player.position];
@@ -138,7 +140,7 @@ function handlePlayerPlacement(player) {
         const substituteCard = existingCard.cloneNode(true);
         substituteCard.id = `substitute-${player.position}-${Date.now()}`;
         substituteCard.style.opacity = '1';
-        // substituteCard.style.pointerEvents = 'auto';
+        substituteCard.style.pointerEvents = 'auto';
         elements.substitutionContainer.appendChild(substituteCard);
         existingCard.remove();
     }
@@ -155,7 +157,7 @@ function handleFormSubmit(event) {
     
     const formData = new FormData(event.target);
     const playerType = formData.get('playerType');
-    const statsContainer = playerType === 'outfield' ? elements.outfieldStats : elements.goalkeeperStats;
+    const statsContainer = playerType === 'outfield' ? elements.outfieldStats : elements.goalkeeperStats;//ternor operator
     
     if (!validateForm(playerType, statsContainer)) {
         return;
@@ -288,6 +290,7 @@ function handleSubstituteReplace(e) {
 
 function handleDelete(e) {
     const card = e.target.closest('.player-card');
+    
     if (!card) return;
 
     const position = card.querySelector('.player-position').textContent;
@@ -408,6 +411,9 @@ function initializeButtonHandlers() {
     // Field handlers
     document.querySelector('.field').addEventListener('click', (e) => {
         if (e.target.classList.contains('replace-btn')) {
+            console.log(document.querySelector('.field'));
+            console.log(document.querySelector('.replace-btn'));
+            
             handleFieldPlayerReplace(e);
         } else if (e.target.classList.contains('delete-btn')) {
             handleDelete(e);
