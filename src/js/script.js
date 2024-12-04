@@ -477,3 +477,10 @@ window.addEventListener('beforeunload', () => {
 
 // Start the application
 initialize();
+
+
+
+
+//mise en situation
+const field = document.getElementsByClassName('field-container')
+const player =field.querySelectorAll('.player-card') 
