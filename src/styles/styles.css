@@ -624,6 +624,7 @@ top: -210px;
     .player-stat {
       display: flex;
       gap: 2px;
+      
     }
   
     .player-stat-values {
@@ -816,7 +817,7 @@ top: -210px;
       height: 30px;
       margin-top: 5px;
     }
-  
+
     .player-name {
       color: white;
       font-weight: bold;
@@ -826,7 +827,7 @@ top: -210px;
     .player-card:hover {
       transform: scale(1.05);
     }
-  
+ 
     .player-stat {
       display: flex;
       gap: 2px;

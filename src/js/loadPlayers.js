@@ -1,4 +1,3 @@
-// Function to fetch and display players from JSON
 async function loadSubstitutionPlayers() {
     try {
         const response = await fetch('/players.json');
@@ -9,7 +8,6 @@ async function loadSubstitutionPlayers() {
     }
 }
 
-// Function to create player cards for substitution section
 function displaySubstitutionPlayers(data) {
     const substitutionContainer = document.getElementById('subtitution-all');
 
@@ -44,9 +42,6 @@ function displaySubstitutionPlayers(data) {
                             <img src="${player.logo}" alt="">
                         </div>
                     </div>
-                </div>
-                <div>
-                    <img src="/src/assets/img/exchange.png" class="replace-btn" alt="">
                 </div>`;
 
             substitutionContainer.appendChild(playerCard);
